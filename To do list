@@ -1,1 +1,67 @@
+# A To-Do List application is a useful project that helps users manage and organize their tasks efficiently. This project aims to create acommand-line or GUI-based application using Python, allowing
+# users to create, update, and track their to-do lists
 
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, description):
+        self.tasks.append({"description": description, "completed": False})
+        print(f"Task '{description}' added successfully!")
+
+    def view_tasks(self):
+        if not self.tasks:
+            print("No tasks found.")
+        else:
+            print("Tasks:")
+            for i, task in enumerate(self.tasks, start=1):
+                print(f"{i}. {task['description']} - {'Completed' if task['completed'] else 'Pending'}")
+
+    def mark_completed(self, index):
+        if 1 <= index <= len(self.tasks):
+            self.tasks[index - 1]["completed"] = True
+            print(f"Task '{self.tasks[index - 1]['description']}' marked as completed!")
+        else:
+            print("Invalid task index.")
+
+    def remove_task(self, index):
+        if 1 <= index <= len(self.tasks):
+            removed_task = self.tasks.pop(index - 1)
+            print(f"Task '{removed_task['description']}' removed successfully!")
+        else:
+            print("Invalid task index.")
+
+
+def main():
+    todo_list = TodoList()
+
+    while True:
+        print("\nOptions:")
+        print("1. Add Task")
+        print("2. View Tasks")
+        print("3. Mark Task as Completed")
+        print("4. Remove Task")
+        print("5. Exit")
+
+        choice = input("Enter your choice (1-5): ")
+
+        if choice == "1":
+            task_description = input("Enter the task: ")
+            todo_list.add_task(task_description)
+        elif choice == "2":
+            todo_list.view_tasks()
+        elif choice == "3":
+            task_index = int(input("Enter the task index to mark as completed: "))
+            todo_list.mark_completed(task_index)
+        elif choice == "4":
+            task_index = int(input("Enter the task index to remove: "))
+            todo_list.remove_task(task_index)
+        elif choice == "5":
+            print("Exiting the to-do list manager. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+
+
+if __name__ == "__main__":
+    main()
